@@ -1,0 +1,48 @@
+body
+{
+  font-family: 'Open Sans', sans-serif;
+}
+select
+{
+  color: #1a237e !important; 
+}
+
+#buttonact,#buttonact1
+{
+	width: 100%;
+	background-color: #1a237e !important;
+}
+#buttonact2
+{
+	width: 100%;
+	background-color: #f44336;
+}
+
+  /* label color */
+  .input-field label {
+    color: #1a237e !important;
+  }
+  /* label focus color */
+  .input-field input[type=text]:focus + label {
+    color: #1a237e !important;
+  }
+  /* label underline focus color */
+  .input-field input[type=text]:focus {
+    border-bottom: 1px solid #1a237e !important;
+    box-shadow: 0 1px 0 0 #1a237e !important;
+  }
+  /* valid color */
+  .input-field input[type=text].valid {
+    border-bottom: 1px solid #1a237e !important;
+    box-shadow: 0 1px 0 0 #1a237e !important;
+  }
+  /* invalid color */
+  .input-field input[type=text].invalid {
+    border-bottom: 1px solid #1a237e !important;
+    box-shadow: 0 1px 0 0 #1a237e !important;
+  }
+  /* icon prefix focus color */
+  .input-field .prefix.active {
+    color: #1a237e !important;
+  }
+       

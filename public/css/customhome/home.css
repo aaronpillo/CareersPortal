@@ -1,0 +1,67 @@
+body
+{
+	font-family: 'Open Sans', sans-serif;
+	width:100%;
+	height:100%;
+	
+}
+/* To prevent over zoom of the image in parallax  */
+.parallax img { width: 100%; }
+/* This is the fix for the sticky navbar */
+.navbar-fixed{
+    z-index: 1000;
+}
+/* This is the icons css */
+.fa 
+{
+padding: 20px;
+font-size: 30px;
+width: 30px;
+text-align: center;
+text-decoration: none;
+margin: 5px 2px;
+border-radius: 50%;
+}
+/* This is for the navbar */
+.nav-wrapper  /*The Color of the Nav bar*/
+{
+	background-color: #101755;
+	color: white;
+}
+.nav-content /*Color of the content of the navbar*/
+{
+	background-color: #101755;
+}
+.nav-wrapper .brand-logo img /*This is for the Logo of PBO*/
+{
+	height: 60px;
+}
+#mobile-demo /*Color of the sidenav when entering mobile mode*/
+{
+	background-color:#000A64;
+	
+}
+.page-footer
+{
+	background-color: #101755;
+}
+a
+{
+	color: white !important;
+}
+i { vertical-align: middle !important; }
+h3
+{
+	padding-top: 30%;
+	padding-left: 15%;
+	color: white;
+	text-shadow: 1px 1px 2px #000;
+}
+p
+{
+	font-size: 1em;
+}
+#sidecolbod
+{
+	background-color: #101755;
+}
