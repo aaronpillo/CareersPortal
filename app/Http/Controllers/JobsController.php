@@ -15,7 +15,7 @@ class JobsController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    //Redirecting to the Admin Page
+    //Redirects to the Admin Page
     public function index()
     {
         if (Auth::check())
@@ -40,7 +40,7 @@ class JobsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    //Redirecting to the Add Page
+    //Redirects to the Add Page
     public function create()
     {
         if (Auth::check())
@@ -59,7 +59,7 @@ class JobsController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    //Adding a Job in the Database
+    //Adds a Job to the Database
     public function store(Request $request)
     {
         if (Auth::check())
@@ -98,7 +98,7 @@ class JobsController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    //Display Job Information based from the id
+    //Displays Job Information based on the id
     public function show($id)
     {
         if (Auth::check())
@@ -118,7 +118,7 @@ class JobsController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    //Redirecting to the Edit Page
+    //Redirects to the Edit Page
     public function edit($id)
     {   
         if (Auth::check())
@@ -139,7 +139,7 @@ class JobsController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    //Updating a Job in the Database
+    //Updates a Job in the Database
     public function update(Request $request, $id)
     {
         if (Auth::check())
