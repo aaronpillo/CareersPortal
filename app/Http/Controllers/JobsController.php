@@ -39,7 +39,7 @@ class JobsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    //Redirecting to Add Page
+    //Redirecting to the Add Page
     public function create()
     {
         if (Auth::check())
