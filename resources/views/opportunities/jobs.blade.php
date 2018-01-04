@@ -17,7 +17,25 @@
                 <ul class="collapsible popout" data-collapsible="accordion">
                     <li>
                         <div class="collapsible-header active">
-                            <i class="material-icons">filter_drama</i>{{$entity->job_title}}
+                            <i class="material-icons"><?php 
+                                
+                            if (($entity->dept_name) == 'Finance and Accounting')
+                                echo("filter_drama");
+
+                            else if (($entity->dept_name) == 'Legal Support Service')
+                                echo("business_center");
+
+                            else if (($entity->dept_name) == 'IT and IT-Enabled Services')
+                                echo("desktop_windows");
+
+                                else if (($entity->dept_name) == 'Sales and Marketing')
+                                echo("record_voice_over");
+                                
+                            ?></i>{{$entity->job_title}}
+                        <?php
+                            if(($entity->isUrgent) == 1)
+                            echo("<span id=\"urgentTag\" class=\"badge red\">Urgent!</span>");
+                        ?>
                         </div>
                         <div class="collapsible-body">
                             <span>
