@@ -1,28 +1,13 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!-- Compiled and minified CSS -->
-        <link rel="stylesheet" href="<?php echo asset('css/materialize.min.css')?>" type="text/css">
+        @include('inc.links'){{--CSS  Links in inc Folder  --}}
          {{--  Custom CSS designed especially for Add Page Layout  --}}
         <link rel="stylesheet" href="<?php echo asset('css/adminonly/addeditpage.css')?>" type="text/css">
-        {{--  Custom CSS for Loading  --}}
-        <link rel="stylesheet" href="<?php echo asset('css/loader.css')?>" type="text/css"> 
-        {{--  FONT of the Website  --}}
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        {{--  Font Awesome for Icons  --}}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">      
-        <title>{{config('app.name','PBO Global')}}</title>
+       <title>{{config('app.name','PBO Global')}}</title>
     </head>
     <body>  
-        {{--  This is the loading animation  --}}
-        <div id="load">
-            <div class="dot1"></div>
-            <div class="dot2"></div>
-        </div>
+        @include('inc.loadingScreen'){{--  this is the loading animation  --}}
 
         {{--  Modal for Confirmation for saving the job --}}
         <div id="modal" class="modal">
@@ -100,18 +85,15 @@
                             <a id="buttonact" data-target="modal1" class="btn modal-trigger" class="waves-effect waves-light btn">Activate Job</a>
                             <br><br>
                             <a href="\admin"id="buttonact" class="waves-effect waves-light indigo darken-3 btn">Return</a>
-                            
                         </div>
 
                     </form>
                 </div>
             {!! Form::close() !!}
-        </div>
+        </div>{{--  id contents  --}}
 
-        <!--Import jQuery before materialize.js-->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <!--JavaScript at end of body for optimized loading-->
-        <script type="text/javascript" src="js/materialize.min.js"></script>
+        {{--  JScripts  --}}
+        @include('inc.scripts')
         <script type="text/javascript" src="<?php echo asset('js/adminonly/adminpage.js')?>"></script>
     </body>
 </html>
