@@ -25,6 +25,7 @@ class PagesController extends Controller
         $jobs_it = jobs::all()->where('dept_name', 'IT and IT Enabled Services');
         $jobs_law = jobs::all()->where('dept_name', 'Legal Support Service');
         $jobs_market = jobs::all()->where('dept_name', 'Sales and Marketing Admin');
+
         return view('AdminOnly.adminpage')
             ->with('title',$title)
             ->with('jobs_finance', $jobs_finance)
@@ -48,8 +49,8 @@ class PagesController extends Controller
         $headers = jobs::all()->where('dept_name', $dept_name)->where('isHiring', '1');
         //return $headers;
         
-        return view('opportunities.jobs')
-            ->with('headers', $headers)
+        return view('home.jobs')
+            ->with('headers', $headers->sortBy('rank'))
             ->with('dept_name', $dept_name);
     }
     public function financeaccounting()
@@ -58,8 +59,8 @@ class PagesController extends Controller
         $headers = jobs::all()->where('dept_name', $dept_name)->where('isHiring', '1');
         //return $headers;
         
-        return view('opportunities.jobs')
-            ->with('headers', $headers)
+        return view('home.jobs')
+            ->with('headers', $headers->sortBy('rank'))
             ->with('dept_name', $dept_name);
     }
     public function legalsupport()
@@ -68,8 +69,8 @@ class PagesController extends Controller
         $headers = jobs::all()->where('dept_name', $dept_name)->where('isHiring', '1');
         //return $headers;
         
-        return view('opportunities.jobs')
-            ->with('headers', $headers)
+        return view('home.jobs')
+            ->with('headers', $headers->sortBy('rank'))
             ->with('dept_name', $dept_name);
     }
     public function salesmarketing()
@@ -78,8 +79,8 @@ class PagesController extends Controller
         $headers = jobs::all()->where('dept_name', $dept_name)->where('isHiring', '1');
         //return $headers;
         
-        return view('opportunities.jobs')
-            ->with('headers', $headers)
+        return view('home.jobs')
+            ->with('headers', $headers->sortBy('rank'))
             ->with('dept_name', $dept_name);
     }
 }
