@@ -14,6 +14,8 @@ class JobsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    //Redirecting to the Admin Page
     public function index()
     {
         if (Auth::check())
@@ -37,6 +39,7 @@ class JobsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //Redirecting to Add Page
     public function create()
     {
         if (Auth::check())
@@ -54,6 +57,8 @@ class JobsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    
+    //Adding a Job in the Database
     public function store(Request $request)
     {
         if (Auth::check())
@@ -88,6 +93,8 @@ class JobsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
+    //Display Job Information based from the id
     public function show($id)
     {
         if (Auth::check())
@@ -106,7 +113,8 @@ class JobsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
+    
+    //Redirecting to the Edit Page
     public function edit($id)
     {   
         if (Auth::check())
@@ -126,6 +134,8 @@ class JobsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
+    //Updating a Job in the Database
     public function update(Request $request, $id)
     {
         if (Auth::check())
@@ -164,7 +174,8 @@ class JobsController extends Controller
     {
         //
     }
-
+    
+    //Deactivate Job
     public function deactivate($id)
     {
         if (Auth::check())
@@ -179,7 +190,8 @@ class JobsController extends Controller
             return redirect('/admin/login');
         
     }
-
+    
+    //Activate Job
     public function activate($id)
     {
         if (Auth::check())
@@ -193,5 +205,35 @@ class JobsController extends Controller
         else
             return redirect('/admin/login');
        
+    }
+    
+    //Mark a Job as Urgent
+      public function markUrgent($id)
+    {
+        if (Auth::check())
+        {
+            $job = jobs::find($id);
+            $job->isUrgent = '1';
+            $job->save();
+            
+            
+            return redirect('/admin');
+        }
+        else
+            return redirect('/admin/login');
+    }
+    //Unmark a Job not urgent 
+    public function unmarkUrgent($id)
+    {
+        if (Auth::check())
+        {
+            $job = jobs::find($id);
+            $job->isUrgent = '0';
+            $job->save();
+
+            return redirect('/admin');
+        }
+        else
+            return redirect('/admin/login');
     }
 }
