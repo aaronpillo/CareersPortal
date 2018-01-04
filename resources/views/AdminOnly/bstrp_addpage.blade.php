@@ -1,341 +1,118 @@
-@extends('layout.admin')
-    
-{{--    Finance Content  --}}
-    @section('Finance')
-        <br>
-        <h4>Finance & Accounting</h4>
-            <ul class="collapsible popout" data-collapsible="accordion">
-                @foreach($jobs_finance as $finance) {{--  $jobs_finance = all info in the database Finance and Accounting per job_title stored in $finance --}}
-                    <li>
-                        <div class="collapsible-header active">
-                            <i class="material-icons">filter_drama</i>
-                            {{$finance->job_title}} {{-- Collapsible header job_title from $finance--}}
+<!doctype html>
+<html lang="{{ app()->getLocale() }}">
+    <head>
+        @include('inc.job_links'){{-- CSS Links in inc folder  --}}
+       <title>{{config('app.name','PBO Global')}}</title>
+    </head>
+    <body>  
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Notice:</h4>
                         </div>
-
-                        {{--  Collapsible-body  --}}
-                            <div class="collapsible-body">
-                                <span>
-                                    {!!$finance->job_description!!}{{--  Collapsible body job_description from $finance --}}
-                                </span>   
-                                <br><br>
-                                
-                                {{-- View Details Button of each job_opportunities with corresponding job_id of $finance --}}
-                                    <?php echo("
-                                        <a href=\"/admin/job_opportunities/".$finance['job_id']."\" class=\"waves-effect waves-light btn indigo darken-4 btn\">
-                                        "); 
-                                    ?> View Details </a>
-                                {{--  End View Details Button  --}}
-
-                                {{-- Edit Button of each job_opportunities with corresponding job_id of $finance --}}
-                                    <?php
-                                        echo("
-                                        <a href=\"/admin/job_opportunities/".$finance['job_id']."/edit\" class=\"waves-effect waves-light btn indigo darken-4 btn\">     
-                                        ");
-                                    ?> Edit </a>
-                                {{--  End Edit Button  --}}
-
-                                {{--  Checking if $finance isHiring --}}
-                                    <?php 
-                                        if (($finance->isHiring) == 1)
-                                            {    
-                                            //  Deactivate job button is displayed when isHiring of $finance in the database is equal to 1  
-                                                echo("
-                                                <a href=\"/admin/job_opportunities/".$finance['job_id']."/deactivate\" class=\"waves-effect waves-light btn red\">
-                                                    Deactivate Job
-                                                </a>"); 
-                                            }
-                                        else
-                                            {
-                                                //Activate Job button is displayed when isHiring of $finance in the database is not equal to 1
-                                                echo("
-                                                <a href=\"/admin/job_opportunities/".$finance['job_id']."/activate\" class=\"waves-effect waves-light btn green darken-4\">
-                                                    Activate Job
-                                                </a>"); 
-                                            }
-                                    ?>
-                                {{--  End of Checking  --}}
-
-                                {{--  Checking if $finance isUrgent --}}
-                                    <?php 
-                                        if (($finance->isUrgent) == 1)
-                                            {    
-                                                // Unmark as urgent button is displayed when isUrgent of $finance in the database is equal to 1  
-                                                echo("
-                                                <a href=\"/admin/job_opportunities/".$finance['job_id']."/unmarkUrgent\" class=\"waves-effect waves-light btn green darken-4\">
-                                                    Unmark as Urgent
-                                                </a>"); 
-                                            }
-                                        else
-                                            {
-                                                //Mark as Urgent button is displayed when isUrgent of $finance in the database is not equal to 1
-                                                echo("
-                                                <a href=\"/admin/job_opportunities/".$finance['job_id']."/markUrgent\" class=\"waves-effect waves-light btn red\">
-                                                    Mark as Urgent
-                                                </a>");  
-                                            }
-                                     ?>
-                                {{--  End of Checking  --}}
-                            </div>
-                        {{--  End of Collapsible body  --}}
-                    </li>   
-                @endforeach
-            </ul>
-    @endsection
-{{--  End of Finance Content  --}}       
-
-{{-- Legal Content   --}}
-    @section('Legal')
-        <br>
-        <h4>Legal Support Service</h4>
-            <ul class="collapsible popout" data-collapsible="accordion">
-                @foreach($jobs_law as $law){{--  $jobs_law = all info in the database Legal Support Service per job_title stored in $law --}}
-                    <li>
-                        <div class="collapsible-header active">
-                            <i class="material-icons">business_center</i>
-                            {{$law->job_title}}{{-- Collapsible header job_title from $law  --}}
+                        <div id="mcontent" class="modal-body">
+                            <p>Are you sure you want to add this Job?</p>
                         </div>
-                        {{--  Collapsible-body  --}}
-                            <div class="collapsible-body">
-                                <span>
-                                    {!!$law->job_description!!}{{--  Collapsible body job_description from $law --}}
-                                </span>   
-                                <br><br>
-                                
-                                {{-- View Details Button of each job_opportunities with corresponding job_id of $law --}}
-                                    <?php echo("
-                                        <a href=\"/admin/job_opportunities/".$law['job_id']."\" class=\"waves-effect waves-light btn indigo darken-4 btn\">
-                                        ");
-                                    ?> View Details </a>
-                                {{--  End View Details Button  --}} 
-                                
-                                {{-- Edit Button of each job_opportunities with corresponding job_id of $law --}}
-                                    <?php
-                                        echo("
-                                        <a href=\"/admin/job_opportunities/".$law['job_id']."/edit\" class=\"waves-effect waves-light btn indigo darken-4 btn\">     
-                                        ");
-                                    ?>  Edit  </a>
-                                {{--  End oF Edit Button  --}}
-
-                                {{--  Checking if $law isHiring--}}        
-                                    <?php 
-                                        if (($law->isHiring) == 1)
-                                            {    
-                                                //  Deactivate job button is displayed when isHiring of $law in the database is equal to 1  
-                                                echo("
-                                                <a href=\"/admin/job_opportunities/".$law['job_id']."/deactivate\" class=\"waves-effect waves-light btn red\">
-                                                    Deactivate Job
-                                                </a>"); 
-                                            }
-                                        else
-                                            {
-                                                //Activate Job button is displayed when isHiring of $law in the database is not equal to 1
-                                                echo("
-                                                <a href=\"/admin/job_opportunities/".$law['job_id']."/activate\" class=\"waves-effect waves-light btn green darken-4\">
-                                                    Activate Job
-                                                </a>"); 
-                                            }
-                                    ?>
-                                {{--  End of Checking  --}}
-
-                                 {{--  Checking if $law isUrgent --}}
-                                 <?php 
-                                 if (($law->isUrgent) == 1)
-                                     {    
-                                     // Unmark urgent button is displayed when isUrgent of $law in the database is equal to 1  
-                                        echo("
-                                        <a href=\"/admin/job_opportunities/".$law['job_id']."/unmarkUrgent\" class=\"waves-effect waves-light btn green darken-4\">
-                                            Unmark as Urgent
-                                        </a>"); 
-                                     }
-                                 else
-                                     {
-                                         //Mark as Urgent button is displayed when isUrgent of $law in the database is not equal to 1
-                                        echo("
-                                        <a href=\"/admin/job_opportunities/".$law['job_id']."/markUrgent\" class=\"waves-effect waves-light btn red\">
-                                            Mark as Urgent
-                                        </a>");  
-                                     }
-                              ?>
-                         {{--  End of Checking  --}}
-                            </div>
-                        {{--  End of Collapsible body  --}}
-                    </li>   
-                @endforeach
-            </ul>
-    @endsection
-{{-- End of Legal Content  --}}
-
-{{--  IT Content  --}}
-    @section('IT')
-        <br>
-        <h4>IT and IT-Enabled Services</h4>
-            <ul class="collapsible popout" data-collapsible="accordion">
-                @foreach($jobs_it as $IT){{--  $jobs_it = all info in the database IT and IT-Enabled Services per job_title store in $IT--}}
-                    <li>
-                        <div class="collapsible-header active">
-                            <i class="material-icons">desktop_windows</i>
-                            {{$IT->job_title}}{{-- Collapsible header job_title from $IT  --}}
+                        <div class="modal-footer">
+                            <button  onclick="disact()"  type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                         </div>
+                    </div>
+                {{--  Modal content  --}}
+            </div>
+        </div>
+        {{--  Modal  --}}
+        
+        @include('inc.loadingScreen'){{--  This is the loading animation  --}}
 
-                        {{--  Collapsible-body  --}}
-                            <div class="collapsible-body">
-                                <span>
-                                    {!!$IT->job_description!!}{{--  Collapsible body job_description from $IT --}}
-                                </span>   
-                                <br><br>
+        <div id="contents">{{-- This div is for wrapping up the whole content for loading screen   --}}
+             <br>
+             <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <label for="sel1">Select Field (select one):</label>
+                        <select class="form-control" id="sel1">
+                            <option>Finance and Accounting</option>
+                            <option>Legal Support Service</option>
+                            <option>IT and IT Enabled Services</option>
+                            <option>Sales and Marketing Support Services</option>
+                        </select>
+                    </div>
 
-                                {{-- View Details Button of each job_opportunities with corresponding job_id of $IT--}}    
-                                    <?php echo("
-                                        <a href=\"/admin/job_opportunities/".$IT['job_id']."\" class=\"waves-effect waves-light btn indigo darken-4 btn\">
-                                        ");
-                                    ?>  View Details  </a>
-                                {{--  End of View Details Button  --}}
-
-                                {{-- Edit Button of each job_opportunities with corresponding job_id of $IT --}}
-                                <?php
-                                    echo("
-                                    <a href=\"/admin/job_opportunities/".$IT['job_id']."/edit\" class=\"waves-effect waves-light btn indigo darken-4 btn\">     
-                                    ");
-                                ?>   Edit </a>
-                                {{--  End of Edit Button  --}}
-
-                                {{--  <a href="#!" class="waves-effect waves-light btn red">  --}}
-                                
-                                {{--  Checking if $IT isHiring --}}   
-                                    <?php 
-                                        if (($IT->isHiring) == 1)
-                                            {    
-                                                //  Deactivate job button is displayed when isHiring of $IT in the database is equal to 1
-                                                echo("
-                                                <a href=\"/admin/job_opportunities/".$IT['job_id']."/deactivate\" class=\"waves-effect waves-light btn red\">
-                                                    Deactivate Job
-                                                </a>"); 
-                                            }
-                                        else
-                                            {
-                                                //Activate Job button is displayed when isHiring of $IT in the database is not equal to 1
-                                                echo("
-                                                <a href=\"/admin/job_opportunities/".$IT['job_id']."/activate\" class=\"waves-effect waves-light btn green darken-4\">
-                                                    Activate Job
-                                                </a>"); 
-                                            }
-                                    ?>
-                                {{-- End of Checking --}}   
-
-                                {{--  Checking if $IT isUrgent --}}
-                                    <?php 
-                                        if (($IT->isUrgent) == 1)
-                                            {    
-                                            // Unmark as urgent button is displayed when isUrgent of $IT in the database is equal to 1  
-                                                echo("
-                                                <a href=\"/admin/job_opportunities/".$IT['job_id']."/unmarkUrgent\" class=\"waves-effect waves-light btn green darken-4\">
-                                                    Unmark as Urgent
-                                                </a>"); 
-                                            }
-                                        else
-                                            {
-                                                //Mark as Urgent button is displayed when isUrgent of $IT in the database is not equal to 1
-                                                echo("
-                                                <a href=\"/admin/job_opportunities/".$IT['job_id']."/markUrgent\" class=\"waves-effect waves-light btn red\">
-                                                    Mark as Urgent
-                                                </a>"); 
-                                            }
-                                    ?>
-                                {{--  End of Checking  --}}                
-
-                            </div>
-                        {{--  End of Collapsible-body  --}}            
-                    </li>   
-                @endforeach
-            </ul>
-    @endsection
-{{--  End IT Content  --}}
-
-{{--  Sales Content  --}}
-    @section('Sales')
-        <br>
-        <h4>Sales and Marketing Support Services</h4>
-            <ul class="collapsible popout" data-collapsible="accordion">
-                @foreach($jobs_market as $market){{--  $jobs_market = all info in the database Sales and Marketing Support Services per job_title stored in $market--}}
-                    <li>
-                        <div class="collapsible-header active">
-                            <i class="material-icons">record_voice_over</i>
-                            {{$market->job_title}}{{-- Collapsible header job_title from $market --}}
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="JT">Job Title:</label>
+                            <input type="text" class="form-control" id="jt">
                         </div>
-                        {{-- Collapsible-body  --}}
-                            <div class="collapsible-body">
-                                <span>
-                                    {!!$market->job_description!!}{{-- job_description from $market--}}
-                                </span>   
-                                <br><br>
-                            
-                                {{-- View Details Button of each job_opportunities with corresponding job_id of $market--}}    
-                                    <?php echo("
-                                        <a href=\"/admin/job_opportunities/".$market['job_id']."\" class=\"waves-effect waves-light btn indigo darken-4 btn\">
-                                        "); 
-                                    ?> View Details </a>
-                                {{--  End of View Details Button  --}}
-                                
-                                {{-- Edit Button of each job_opportunities with corresponding job_id of $market --}}
-                                    <?php
-                                        echo("
-                                        <a href=\"/admin/job_opportunities/".$market['job_id']."/edit\" class=\"waves-effect waves-light btn indigo darken-4 btn\">     
-                                        ");
-                                    ?> Edit </a>
-                                {{--  End of Edit Button   --}}
+                    </div>
+                </div> {{--  class row\  --}}
 
-                                    {{--  <a href="#!" class="waves-effect waves-light btn red">  --}}
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="jdesc">Job Description:</label>
+                            <textarea class="form-control" rows="5" id="jobdesc"></textarea>
+                        </div>
+                    </div>
 
-                                {{--  Checking if $market isHiring--}}   
-                                    <?php 
-                                        if (($market->isHiring) == 1)
-                                            {    
-                                                //  Deactivate job button is displayed when isHiring of $market in the database is equal to 1
-                                                echo("
-                                                <a href=\"/admin/job_opportunities/".$market['job_id']."/deactivate\" class=\"waves-effect waves-light btn red\">
-                                                    Deactivate Job
-                                                </a>"); 
-                                            }
-                                        else
-                                            {
-                                                //Activate Job button is displayed when isHiring of $market in the database is not equal to 1
-                                                echo("
-                                                <a href=\"/admin/job_opportunities/".$market['job_id']."/activate\" class=\"waves-effect waves-light btn green darken-4\">
-                                                    Activate Job
-                                                </a>"); 
-                                            }
-                                    ?>
-                                {{--  End of Checking  --}}
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="jadv">Advantages:</label>
+                            <textarea class="form-control" rows="5" id="Jadv"></textarea>
+                        </div>
+                    </div>    
+                </div> {{--  class row  --}}
 
-                                {{--  Checking if $market isUrgent --}}
-                                    <?php 
-                                        if (($market->isUrgent) == 1)
-                                            {    
-                                            // Unmark as urgent button is displayed when isUrgent of $market in the database is equal to 1  
-                                                echo("
-                                                <a href=\"/admin/job_opportunities/".$market['job_id']."/unmarkUrgent\" class=\"waves-effect waves-light btn green darken-4\">
-                                                    Unmark as Urgent
-                                                </a>"); 
-                                            }
-                                        else
-                                            {
-                                                //Mark as Urgent button is displayed when isUrgent of $market in the database is not equal to 1
-                                                echo("
-                                                <a href=\"/admin/job_opportunities/".$market['job_id']."/markUrgent\" class=\"waves-effect waves-light btn red\">
-                                                    Mark as Urgent
-                                                </a>"); 
-                                            }
-                                    ?>
-                                {{--  End of Checking  --}}
-                            </div>
-                        {{--  End of Collapsible-body  --}}
-                    </li>   
-                @endforeach
-            </ul>
-    @endsection
-{{--  End of Sales  --}}
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="respo">Responsibilities:</label>
+                            <textarea class="form-control" rows="5" id="Respon"></textarea>
+                        </div>
+                    </div>
 
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="GenQ">General Qualifications:</label>
+                            <textarea class="form-control" rows="5" id="genQ"></textarea>
+                        </div>
+                    </div>    
+                </div> {{--  class row  --}}
 
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="req">Requirements:</label>
+                            <textarea class="form-control" rows="5" id="requi"></textarea>
+                        </div>
+                    </div>
 
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label for="JR">Job Rank:</label>
+                            <input type="number" class="form-control" id="jr">
+                        </div>
+                    </div> 
 
-    
+                    <br><br>
+
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <button type="submit" data-toggle="modal" data-target="#myModal" id="buttonact"  class="btn btn-primary">Add Job</button>
+                            <button type="button" class="btn btn-default">Return Home</button>
+                        </div>
+                    </div>
+
+                </div> {{--  class row  --}}
+             </div> {{--  class container  --}}
+        </div> {{--  id contents  --}}
+
+        {{--  JScript  --}}
+        <script type="text/javascript" src="<?php echo asset('js/adminonly/btsrpadd.js')?>"></script>
+    </body>
+</html>
