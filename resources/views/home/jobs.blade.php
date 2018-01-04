@@ -16,15 +16,6 @@
         @endsection
     {{-- End of Background Photo Mobile View  --}}
 
-        {{--Loading Animation--}}
-            @section('loadingScreen')
-                <div id="load">
-                        <div class="dot1"></div>
-                        <div class="dot2"></div>
-                </div>
-            @endsection
-        {{--End of Loading Animation--}}
-
 {{--  Opportunities Content  --}}
     @section('content')    
         {{--  This is a loop to display all jobs titles of a department  --}}
