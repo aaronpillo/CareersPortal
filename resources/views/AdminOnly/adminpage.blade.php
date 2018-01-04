@@ -9,6 +9,11 @@
                     <div class="collapsible-header active">
                         <i class="material-icons">filter_drama</i>
                         {{$finance->job_title}}
+                        
+                    <?php
+                        if(($finance->isUrgent) == 1)
+                        echo("<span id=\"urgentTag\" class=\"badge red\">Urgent!</span>");
+                    ?>
                     </div>
                     <div class="collapsible-body">
                         <span>
@@ -29,8 +34,6 @@
                     ?>
                             Edit
                         </a>
-                    
-                        {{--  <a href="#!" class="waves-effect waves-light btn red">  --}}
                     <?php 
 
                     if (($finance->isHiring) == 1)
@@ -45,6 +48,21 @@
                         echo("
                         <a href=\"/admin/job_opportunities/".$finance['job_id']."/activate\" class=\"waves-effect waves-light btn green darken-4\">
                             Activate Job
+                        </a>"); 
+                    }
+
+                    if (($finance->isUrgent) == 1)
+                    {    
+                        echo("
+                        <a href=\"/admin/job_opportunities/".$finance['job_id']."/unmarkUrgent\" class=\"waves-effect waves-light btn green darken-4\">
+                            Unmark as Urgent
+                        </a>"); 
+                    }
+                    else
+                    {
+                        echo("
+                        <a href=\"/admin/job_opportunities/".$finance['job_id']."/markUrgent\" class=\"waves-effect waves-light btn red\">
+                            Mark as Urgent
                         </a>"); 
                     }
                     ?>
@@ -65,6 +83,11 @@
                     <div class="collapsible-header active">
                         <i class="material-icons">business_center</i>
                         {{$law->job_title}}
+
+                    <?php
+                        if(($law->isUrgent) == 1)
+                        echo("<span id=\"urgentTag\" class=\"badge red\">Urgent!</span>");
+                    ?>
                     </div>
                     <div class="collapsible-body">
                         <span>
@@ -84,8 +107,6 @@
                     ?>
                             Edit
                         </a>
-                    
-                        {{--  <a href="#!" class="waves-effect waves-light btn red">  --}}
                     <?php 
 
                     if (($law->isHiring) == 1)
@@ -102,7 +123,24 @@
                             Activate Job
                         </a>"); 
                     }
+
+                    if (($law->isUrgent) == 1)
+                    {    
+                        echo("
+                        <a href=\"/admin/job_opportunities/".$law['job_id']."/unmarkUrgent\" class=\"waves-effect waves-light btn green darken-4\">
+                            Unmark as Urgent
+                        </a>"); 
+                    }
+                    else
+                    {
+                        echo("
+                        <a href=\"/admin/job_opportunities/".$law['job_id']."/markUrgent\" class=\"waves-effect waves-light btn red\">
+                            Mark as Urgent
+                        </a>"); 
+                    }
                     ?>
+                    
+                    
                     </div>
                 </li>   
             @endforeach
@@ -118,6 +156,11 @@
                     <div class="collapsible-header active">
                         <i class="material-icons">desktop_windows</i>
                         {{$IT->job_title}}
+
+                    <?php
+                        if(($IT->isUrgent) == 1)
+                        echo("<span id=\"urgentTag\" class=\"badge red\">Urgent!</span>");
+                    ?>
                     </div>
                     <div class="collapsible-body">
                         <span>
@@ -136,8 +179,6 @@
                     ?>
                             Edit
                         </a>
-                    
-                        {{--  <a href="#!" class="waves-effect waves-light btn red">  --}}
                     <?php 
 
                     if (($IT->isHiring) == 1)
@@ -154,7 +195,23 @@
                             Activate Job
                         </a>"); 
                     }
+
+                    if (($IT->isUrgent) == 1)
+                    {    
+                        echo("
+                        <a href=\"/admin/job_opportunities/".$IT['job_id']."/unmarkUrgent\" class=\"waves-effect waves-light btn green darken-4\">
+                            Unmark as Urgent
+                        </a>"); 
+                    }
+                    else
+                    {
+                        echo("
+                        <a href=\"/admin/job_opportunities/".$IT['job_id']."/markUrgent\" class=\"waves-effect waves-light btn red\">
+                            Mark as Urgent
+                        </a>"); 
+                    }
                     ?>
+                    
                     </div>
                 </li>   
             @endforeach
@@ -170,6 +227,11 @@
                     <div class="collapsible-header active">
                         <i class="material-icons">record_voice_over</i>
                         {{$market->job_title}}
+
+                    <?php
+                        if(($market->isUrgent) == 1)
+                        echo("<span id=\"urgentTag\" class=\"badge red\">Urgent!</span>");
+                    ?>
                     </div>
                     <div class="collapsible-body">
                         <span>
@@ -189,8 +251,6 @@
                     ?>
                             Edit
                         </a>
-                    
-                        {{--  <a href="#!" class="waves-effect waves-light btn red">  --}}
                     <?php 
 
                     if (($market->isHiring) == 1)
@@ -207,12 +267,25 @@
                             Activate Job
                         </a>"); 
                     }
+                    
+
+                    if (($market->isUrgent) == 1)
+                    {    
+                        echo("
+                        <a href=\"/admin/job_opportunities/".$market['job_id']."/unmarkUrgent\" class=\"waves-effect waves-light btn green darken-4\">
+                            Unmark as Urgent
+                        </a>"); 
+                    }
+                    else
+                    {
+                        echo("
+                        <a href=\"/admin/job_opportunities/".$market['job_id']."/markUrgent\" class=\"waves-effect waves-light btn red\">
+                            Mark as Urgent
+                        </a>"); 
+                    }
                     ?>
                     </div>
                 </li>   
             @endforeach
         </ul>
     @endsection
-
-
-    
