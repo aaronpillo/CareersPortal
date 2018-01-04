@@ -11,13 +11,15 @@ class PagesController extends Controller
     // (
     //     'titleindex' => 'Welcome to PBO Global',
     // );
-
+    
+    // Redirecting to the Home page
     public function index()
     {
         $title = 'Welcome to PBO Global';
         return view('home.index')->with('title',$title);
     }
     
+    //Redirecting to the Admin Page
     public function Admin()
     {
         $title = 'Welcome Admin';
@@ -25,6 +27,7 @@ class PagesController extends Controller
         $jobs_it = jobs::all()->where('dept_name', 'IT and IT Enabled Services');
         $jobs_law = jobs::all()->where('dept_name', 'Legal Support Service');
         $jobs_market = jobs::all()->where('dept_name', 'Sales and Marketing Admin');
+
         return view('AdminOnly.adminpage')
             ->with('title',$title)
             ->with('jobs_finance', $jobs_finance)
@@ -32,54 +35,64 @@ class PagesController extends Controller
             ->with('jobs_law', $jobs_law)
             ->with('jobs_market', $jobs_market);
     }
+    
     public function login()
     {
         $title = 'Welcome to PBO Global';
         return view('AdminOnly.loginpage')->with('title',$title);
     }
+    //Redirecting to the Gallery Page
     public function gallery()
     {
         $title = 'Gallery';
         return view('home.gallery')->with('title',$title);
     }
+    
+    //Redirecting to the Job Opportunities of IT and It Enabled Services
     public function itservices()
     {
         $dept_name = 'IT and IT-Enabled Services';
         $headers = jobs::all()->where('dept_name', $dept_name)->where('isHiring', '1');
         //return $headers;
         
-        return view('opportunities.jobs')
-            ->with('headers', $headers)
+        return view('home.jobs')
+            ->with('headers', $headers->sortBy('rank'))
             ->with('dept_name', $dept_name);
     }
+    
+    //Redirecting to the Job Opportunities of Finance and Accounting
     public function financeaccounting()
     {
         $dept_name = 'Finance and Accounting';
         $headers = jobs::all()->where('dept_name', $dept_name)->where('isHiring', '1');
         //return $headers;
         
-        return view('opportunities.jobs')
-            ->with('headers', $headers)
+        return view('home.jobs')
+            ->with('headers', $headers->sortBy('rank'))
             ->with('dept_name', $dept_name);
     }
+    
+    //Redirecting to the Job Opportunities of Legal Support Service
     public function legalsupport()
     {
         $dept_name = 'Legal Support Service';
         $headers = jobs::all()->where('dept_name', $dept_name)->where('isHiring', '1');
         //return $headers;
         
-        return view('opportunities.jobs')
-            ->with('headers', $headers)
+        return view('home.jobs')
+            ->with('headers', $headers->sortBy('rank'))
             ->with('dept_name', $dept_name);
     }
+    
+    //Redirecting to the Job Opportunities of Sales and Marketing Admin
     public function salesmarketing()
     {
         $dept_name = 'Sales and Marketing';
         $headers = jobs::all()->where('dept_name', $dept_name)->where('isHiring', '1');
         //return $headers;
         
-        return view('opportunities.jobs')
-            ->with('headers', $headers)
+        return view('home.jobs')
+            ->with('headers', $headers->sortBy('rank'))
             ->with('dept_name', $dept_name);
     }
 }
