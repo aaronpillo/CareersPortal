@@ -12,14 +12,14 @@ class PagesController extends Controller
     //     'titleindex' => 'Welcome to PBO Global',
     // );
     
-    // Redirecting to the Home page
+    // Redirects to the Home page
     public function index()
     {
         $title = 'Welcome to PBO Global';
         return view('home.index')->with('title',$title);
     }
     
-    //Redirecting to the Admin Page
+    //Redirects to the Admin Page
     public function Admin()
     {
         $title = 'Welcome Admin';
@@ -41,14 +41,14 @@ class PagesController extends Controller
         $title = 'Welcome to PBO Global';
         return view('AdminOnly.loginpage')->with('title',$title);
     }
-    //Redirecting to the Gallery Page
+    //Redirects to the Gallery Page
     public function gallery()
     {
         $title = 'Gallery';
         return view('home.gallery')->with('title',$title);
     }
     
-    //Redirecting to the Job Opportunities of IT and It Enabled Services
+    //Redirects to the Job Opportunities of IT and It Enabled Services
     public function itservices()
     {
         $dept_name = 'IT and IT-Enabled Services';
@@ -60,7 +60,7 @@ class PagesController extends Controller
             ->with('dept_name', $dept_name);
     }
     
-    //Redirecting to the Job Opportunities of Finance and Accounting
+    //Redirects to the Job Opportunities of Finance and Accounting
     public function financeaccounting()
     {
         $dept_name = 'Finance and Accounting';
@@ -72,7 +72,7 @@ class PagesController extends Controller
             ->with('dept_name', $dept_name);
     }
     
-    //Redirecting to the Job Opportunities of Legal Support Service
+    //Redirects to the Job Opportunities of Legal Support Service
     public function legalsupport()
     {
         $dept_name = 'Legal Support Service';
@@ -84,7 +84,7 @@ class PagesController extends Controller
             ->with('dept_name', $dept_name);
     }
     
-    //Redirecting to the Job Opportunities of Sales and Marketing Admin
+    //Redirects to the Job Opportunities of Sales and Marketing Admin
     public function salesmarketing()
     {
         $dept_name = 'Sales and Marketing';
