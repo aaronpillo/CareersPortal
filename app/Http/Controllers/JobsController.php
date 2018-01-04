@@ -20,10 +20,11 @@ class JobsController extends Controller
     {
         if (Auth::check())
         {
-            $jobs_finance = jobs::all()->where('dept_name', 'Finance and Accounting');
-            $jobs_it = jobs::all()->where('dept_name', 'IT and IT-Enabled Services');
-            $jobs_law = jobs::all()->where('dept_name', 'Legal Support Service');
-            $jobs_market = jobs::all()->where('dept_name', 'Sales and Marketing');
+             $jobs_finance = jobs::all()->where('dept_name', 'Finance and Accounting')->sortBy('rank');
+            $jobs_it = jobs::all()->where('dept_name', 'IT and IT-Enabled Services')->sortBy('rank');
+            $jobs_law = jobs::all()->where('dept_name', 'Legal Support Service')->sortBy('rank');
+            $jobs_market = jobs::all()->where('dept_name', 'Sales and Marketing')->sortBy('rank');
+        
             return view('AdminOnly.adminpage')
                 ->with('jobs_finance', $jobs_finance)
                 ->with('jobs_it', $jobs_it)
