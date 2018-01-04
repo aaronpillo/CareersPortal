@@ -48,6 +48,22 @@
                         </a>"); 
                     }
                     ?>
+                    
+                    if (($finance->isUrgent) == 1)
+                    {    
+                        echo("
+                        <a href=\"/admin/job_opportunities/".$finance['job_id']."/unmarkUrgent\" class=\"waves-effect waves-light btn green darken-4\">
+                            Unmark as Urgent
+                        </a>"); 
+                    }
+                    else
+                    {
+                        echo("
+                        <a href=\"/admin/job_opportunities/".$finance['job_id']."/markUrgent\" class=\"waves-effect waves-light btn red\">
+                            Mark as Urgent
+                        </a>"); 
+                    }
+                    ?>
                            
                     </div>
                 </li>   
