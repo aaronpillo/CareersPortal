@@ -79,6 +79,9 @@ class JobsController extends Controller
             $job->advantages = $request->input('txt_advantages');
             $job->general_qualifications = $request->input('txt_general_qualifications');
             $job->isHiring = '1';
+            $job->isUrgent = '0';
+            $job->rank=$request->input('number_job_rank');
+  
             $job->save();
 
             return redirect('/admin');
@@ -155,7 +158,8 @@ class JobsController extends Controller
             $job->requirements = $request->input('txt_requirements');
             $job->advantages = $request->input('txt_advantages');
             $job->general_qualifications = $request->input('txt_general_qualifications');
-            $job->isHiring = '1';
+            $job->isHiring; 
+            $job->rank=$request->input('number_job_rank');
             $job->save();
 
             return redirect('/admin/job_opportunities/'.$id);
@@ -238,3 +242,11 @@ class JobsController extends Controller
             return redirect('/admin/login');
     }
 }
+
+            
+  
+
+            
+               
+                             
+                               
