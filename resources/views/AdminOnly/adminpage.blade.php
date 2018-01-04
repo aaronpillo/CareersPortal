@@ -335,14 +335,6 @@
     @endsection
 {{--  End of Sales  --}}
 
-{{--Loading Animation--}}
-    @section('loadingScreen')
-        <div id="load">
-                <div class="dot1"></div>
-                <div class="dot2"></div>
-        </div>
-    @endsection
-{{--End of Loading Animation--}}
 
 
 
