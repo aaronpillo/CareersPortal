@@ -14,8 +14,6 @@ class JobsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
-    //Redirects to the Admin Page
     public function index()
     {
         if (Auth::check())
@@ -24,13 +22,14 @@ class JobsController extends Controller
             $jobs_it = jobs::all()->where('dept_name', 'IT and IT-Enabled Services')->sortBy('rank');
             $jobs_law = jobs::all()->where('dept_name', 'Legal Support Service')->sortBy('rank');
             $jobs_market = jobs::all()->where('dept_name', 'Sales and Marketing')->sortBy('rank');
-
+            
             return view('AdminOnly.adminpage')
                 ->with('jobs_finance', $jobs_finance)
                 ->with('jobs_it', $jobs_it)
                 ->with('jobs_law', $jobs_law)
                 ->with('jobs_market', $jobs_market);
         }
+
         else
             return redirect('/admin/login');
     }
@@ -40,8 +39,7 @@ class JobsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    //Redirects to the Add Page
-   public function create()
+    public function create()
     {
         if (Auth::check())
         {
@@ -58,9 +56,7 @@ class JobsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    
-    //Adds a Job to the Database
-   public function store(Request $request)
+    public function store(Request $request)
     {
         if (Auth::check())
         {
@@ -101,8 +97,6 @@ class JobsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
-    //Displays Job Information based on the id
     public function show($id)
     {
         if (Auth::check())
@@ -121,8 +115,7 @@ class JobsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
-    //Redirects to the Edit Page
+
     public function edit($id)
     {   
         if (Auth::check())
@@ -142,8 +135,6 @@ class JobsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
-    //Updates a Job in the Database
     public function update(Request $request, $id)
     {
         if (Auth::check())
@@ -168,7 +159,8 @@ class JobsController extends Controller
             $this->editRank($job->job_id, $job->rank, $request->input('txt_rank'), $job->dept_name);
             //               <job_id>     <origRank>           <newRank>            <deptName>
             
-            return redirect('/admin');
+            $address = $this->getDashboardAddress($job->dept_name);
+            return redirect('/dashboard#'.$address);
         }
         else
             return redirect('/admin/login');
@@ -185,9 +177,14 @@ class JobsController extends Controller
     {
         //
     }
+
+
+
+    /* CUSTOM FUNCTIONS */
     
-    //Deactivate Job
-    public function deactivate($id)
+    /* ----------------------------------------------------------- */
+    /* ACTIVATE/DEACTIVATE ALGORITHMS */    
+    public function deactivate($id) /* Deactivate a job opening */
     {
         if (Auth::check())
         {
@@ -201,9 +198,9 @@ class JobsController extends Controller
             return redirect('/admin/login');
         
     }
+
     
-    //Activate Job
-    public function activate($id)
+    public function activate($id) /* Activate a job opening */
     {
         if (Auth::check())
         {
@@ -217,9 +214,12 @@ class JobsController extends Controller
             return redirect('/admin/login');
        
     }
+
+
+    /* ----------------------------------------------------------- */
+    /* MARKING/UNMARKING URGENT ALGORITHMS */
     
-    /* MARKING A JOB AS URGENT */
-    public function markUrgent($id)
+    public function markUrgent($id) /* Marking a job opening as "Urgent" */
     {
         if (Auth::check())
         {
@@ -227,38 +227,47 @@ class JobsController extends Controller
             $job->isUrgent = '1';
             $job->save();
             
-            
-            return redirect('/admin');
+            $address = $this->getDashboardAddress($job->dept_name);
+            return redirect('/dashboard#'.$address);
         }
         else
             return redirect('/admin/login');
     }
 
-    /* UNMARKING A JOB AS URGENT */
-    public function unmarkUrgent($id)
+    
+    public function unmarkUrgent($id) /* Removing marking of a job opening as "Urgent" */
     {
         if (Auth::check())
         {
             $job = jobs::find($id);
             $job->isUrgent = '0';
             $job->save();
+            
+            $address = $this->getDashboardAddress($job->dept_name);
 
-            return redirect('/admin');
+            return redirect('/dashboard#'.$address);
         }
         else
             return redirect('/admin/login');
     }
 
-    /* ALGORITHMS IN CHANGING RANKS */
-    public function editRank($id, $origRank, $newRank, $dept)
+    /* ----------------------------------------------------------- */
+    /* RANKING ALGORITHMS*/
+    
+    public function editRank($id, $origRank, $newRank, $dept) /* Function containing algorithms when editing ranks */
     {
-        //If original Rank of Job is Null, change the Rank to the latest Rank + 1
-        if ($origRank == "")
+        // Validation of input Variables
+        if ($origRank == "") // sets $origRank to the last rank if initially null
         {
             $lastRank = jobs::all()->where('dept_name', $dept)->sortBy('rank')->last()->rank;
             $origRank = $lastRank + 1;
         }
+
+        if ($newRank < 1) // $sets $newRank to 1 if initially 0 or negative
+            $newRank = 1;
         
+        
+        /* CASE 1: Changing rank to a lower value (Higher Priority) */
         if ($newRank < $origRank) /* When editing a rank to a lower value/higher priority */
         {
             $editJob = jobs::all()->where('rank', $newRank)->where('dept_name', $dept);
@@ -272,7 +281,7 @@ class JobsController extends Controller
             }
         }
 
-
+        /* CASE 2: Changing rank to a higher value (Lower Priority) */
         elseif ($newRank > $origRank) /* When editing a rank to a higher value/lower priority */
         {
             $lastRank = jobs::all()->where('dept_name', $dept)->sortBy('rank')->last()->rank;
@@ -284,7 +293,7 @@ class JobsController extends Controller
             }
 
             if ($newRank > $lastRank)
-                $origRank = $lastRank;
+                $newRank = $lastRank;
         }
         
 
@@ -294,8 +303,7 @@ class JobsController extends Controller
         $editJob->save();
     }
 
-    /* Algorithm in pushing down ranks */
-    public function pushRankDown($editJob)
+    public function pushRankDown($editJob) /* Increase rank by 1 (lower priority) */
     {
         foreach($editJob as $job)
         {
@@ -304,9 +312,8 @@ class JobsController extends Controller
             $edit->save();
         }
     }
-    
-    /* Algorithm in pushing up ranks */
-    public function pushRankUp($editJob)
+
+    public function pushRankUp($editJob) /* Decrease rank by 1 (higher priority) */
     {
         foreach($editJob as $job)
         {
@@ -315,12 +322,25 @@ class JobsController extends Controller
             $edit->save();
         }
     }
+
+
+    /* ----------------------------------------------------------- */
+    /* REDIRECTING ALGORITHMS*/
+    
+    public function getDashboardAddress($deptName) /* function in getting address for redirecting dashboard to its corresponding department tab */
+    {
+        if ($deptName == 'IT and IT-Enabled Services')
+            $address = 'IT';
+
+        else if ($deptName == 'Finance and Accounting')
+            $address = 'Finance';
+
+        else if ($deptName == 'Legal Support Service')
+            $address = 'Legal';
+
+        else if ($deptName == 'Sales and Marketing')
+            $address = 'Sales';
+        
+        return $address;
+    }
 }
-
-            
-  
-
-            
-               
-                             
-                               
