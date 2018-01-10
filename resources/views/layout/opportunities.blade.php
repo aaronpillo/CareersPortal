@@ -18,7 +18,7 @@
 
                     <div class="parallax-container hide-on-small-only">
                         <div class="parallax">
-                           <h3>Start Builidng Your Career</h3>
+                           <h3>Start Building Your Career</h3>
                             <img style="z-index: -1;" src=<?php echo asset("img/careers1.jpg")?>>
                         </div>
                     </div>
